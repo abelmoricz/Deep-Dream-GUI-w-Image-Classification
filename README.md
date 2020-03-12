@@ -31,7 +31,7 @@ IPython```pip3 install ipython```
 
 **Unzip the thumbnails folder before running anything**
 
-![alt text](https://raw.githubusercontent.com/abelmoricz/deep/master/gui.png)
+![alt text](https://github.com/abelmoricz/deep/blob/master/gui.png "Logo Title Text 1")
 
 
 
