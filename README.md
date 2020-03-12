@@ -1,6 +1,6 @@
 # Deep Dream GUI with image classification
-I realize this GUI is written a bit clumsily. Criticism is very welcomed.  
-My focus was usability and intuitiveness (see User_Guide.pdf for more details)
+My first public project. Criticism is very welcomed.  
+The focus was usability and intuitiveness (see User_Guide.pdf for more details)
 
 Features:
 * Creates Native features; a quick visualization of how a layer and channel are going to distort an image
