@@ -13,8 +13,9 @@ Features:
     
 Requirements:  
 Python 3.6.8  
-PyQt5  
-```pip3 install PyQt5```  
+PyQt5```pip3 install PyQt5```  
+  
+  
 Pillow  
 ```pip3 install Pillow```  
 numpy  
