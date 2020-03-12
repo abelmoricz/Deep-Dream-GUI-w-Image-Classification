@@ -11,11 +11,18 @@ Features:
 (because I was tired of choosing layers and channels randomly and waiting each time for what would result)  
  
     
-Dependancies:  
+Requirements:  
+Python 3.6.8  
 PyQt5  
+```pip3 install PyQt5```  
 Pillow  
+```pip3 install Pillow```  
 numpy  
-tensorflow  
+```pip3 install numpy```  
+tensorflow    
+```python3 -m pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.13.1-py3-none-any.whl```  
+IPython  
+```pip3 install ipython```
 
 **Unzip the thumbnails folder before running anything**
 
