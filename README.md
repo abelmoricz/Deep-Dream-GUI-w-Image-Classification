@@ -12,7 +12,9 @@ Features:
  
     
 Requirements:  
-Python 3.6.8  
+Python 3.6.8 (try different versions at your own risk) 
+  
+  
 PyQt5```pip3 install PyQt5```  
   
   
