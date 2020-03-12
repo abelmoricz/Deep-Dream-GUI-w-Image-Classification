@@ -31,5 +31,8 @@ IPython```pip3 install ipython```
 
 **Unzip the thumbnails folder before running anything**
 
+![alt text](https://raw.githubusercontent.com/abelmoricz/deep/master/gui.png)
+
+
 
 
