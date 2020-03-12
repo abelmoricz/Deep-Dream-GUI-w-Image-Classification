@@ -29,7 +29,7 @@ tensorflow```python3 -m pip install --upgrade https://storage.googleapis.com/ten
   
 IPython```pip3 install ipython```
 
-**Unzip the thumbnails folder before running anything**
+**Unzip the thumbnails folder before running GUI.py**
 
 ![alt text](https://github.com/abelmoricz/deep/blob/master/gui.png "Logo Title Text 1")
 
