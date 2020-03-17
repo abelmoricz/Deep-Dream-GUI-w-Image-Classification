@@ -33,7 +33,7 @@ IPython```pip3 install ipython```
 
 **Unzip the thumbnails folder before running GUI.py**
 
-![alt text](https://github.com/abelmoricz/Deep-Dream-w-Image-Classification/blob/master/gui.png "Logo Title Text 1")
+![alt text](https://github.com/abelmoricz/Deep-Dream-w-Image-Classification/blob/master/GUI.png "Logo Title Text 1")
 
 
 
