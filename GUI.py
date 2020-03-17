@@ -21,8 +21,8 @@ class Ui_MainWindow(QWidget):
         self.centralwidget.setObjectName("centralwidget")
         #variables to control operations of the class
         self.my_directory_path = str(os.path.dirname(os.path.realpath(__file__)))
-        self.currentchannel = 0
-        self.currentlayer = 'conv2d0_pre_relu'
+        self.currentchannel = 29
+        self.currentlayer = 'mixed4c_pool_reduce_pre_relu'
         self.noisepic = np.random.uniform(size=(193,193,3))  #193 fills up a 280x280 perfectly probably because of border thickness
         self.windows = list()
         self.nf_pic = PIL.Image.open('images/default')
@@ -34,8 +34,8 @@ class Ui_MainWindow(QWidget):
         self.nf_save = False
         self.pic_save = False
         #variables for display purposes
-        self.nf_num_iterations = 0
-        self.pic_num_iterations = 0
+        self.nf_num_iterations = 3
+        self.pic_num_iterations = 5
         self.nf_classification = "No Description"
         self.pic_classification = "No Description"
         self.nf_layer = ""
@@ -50,10 +50,10 @@ class Ui_MainWindow(QWidget):
         #Display selected layer and channel
         self.C_select = QtWidgets.QLabel(self.centralwidget)
         self.C_select.setGeometry(10, 60, 250, 25)
-        self.C_select.setText("Channel: 1")
+        self.C_select.setText("Channel: 30")
         self.L_select = QtWidgets.QLabel(self.centralwidget)
         self.L_select.setGeometry(10, 30, 250, 25)
-        self.L_select.setText("Layer: conv2d0")
+        self.L_select.setText("Layer: mixed4c_pool_reduce")
 
         self.layer_array = ["conv2d0_pre_relu", "conv2d1_pre_relu","conv2d2_pre_relu","mixed3a_1x1_pre_relu","mixed3a_3x3_bottleneck_pre_relu","mixed3a_3x3_pre_relu","mixed3a_5x5_bottleneck_pre_relu","mixed3a_5x5_pre_relu","mixed3a_pool_reduce_pre_relu","mixed3b_1x1_pre_relu","mixed3b_3x3_bottleneck_pre_relu","mixed3b_3x3_pre_relu","mixed3b_5x5_bottleneck_pre_relu","mixed3b_5x5_pre_relu","mixed3b_pool_reduce_pre_relu","mixed4a_1x1_pre_relu","mixed4a_3x3_bottleneck_pre_relu","mixed4a_3x3_pre_relu","mixed4a_5x5_bottleneck_pre_relu","mixed4a_5x5_pre_relu","mixed4a_pool_reduce_pre_relu","mixed4b_1x1_pre_relu","mixed4b_3x3_bottleneck_pre_relu","mixed4b_3x3_pre_relu", "mixed4b_5x5_bottleneck_pre_relu","mixed4b_5x5_pre_relu","mixed4b_pool_reduce_pre_relu","mixed4c_1x1_pre_relu","mixed4c_3x3_bottleneck_pre_relu","mixed4c_3x3_pre_relu","mixed4c_5x5_bottleneck_pre_relu","mixed4c_5x5_pre_relu","mixed4c_pool_reduce_pre_relu","mixed4d_1x1_pre_relu","mixed4d_3x3_bottleneck_pre_relu","mixed4d_3x3_pre_relu","mixed4d_5x5_bottleneck_pre_relu","mixed4d_5x5_pre_relu","mixed4d_pool_reduce_pre_relu","mixed4e_1x1_pre_relu","mixed4e_3x3_bottleneck_pre_relu","mixed4e_3x3_pre_relu","mixed4e_5x5_bottleneck_pre_relu","mixed4e_5x5_pre_relu","mixed4e_pool_reduce_pre_relu"]
         self.channel_array = [64,64,192,64,96,128,16,32,32,128,128,192,32,96,64,192,96,204,16,48,64,160,112,224,24,64,64,128,128,256,24,64,64,112,144,288,32,64,64,256,160,320,32,128,128,256,160,320,48,128,128,384,192,384,48,128,128,128,128]
@@ -89,6 +89,8 @@ class Ui_MainWindow(QWidget):
                 grid.addWidget(button,grid_x+1,grid_y)
                 rowcounter = rowcounter + 1
                 grid_y = grid_y + 1
+
+        
                 
         #Native Feature picture widget 
         self.NF_pic = QLabel(self.centralwidget)
@@ -124,15 +126,15 @@ class Ui_MainWindow(QWidget):
         self.NF_window.setText("New Window")
         self.NF_window.clicked.connect(self.NF_window_generate)
         self.NF_export = QtWidgets.QPushButton(self.NF_controls)
-        self.NF_export.setGeometry(QtCore.QRect(25, 112, 100, 25))
+        self.NF_export.setGeometry(QtCore.QRect(25, 118, 100, 25))
         self.NF_export.setText("Save jpeg")
         self.NF_export.clicked.connect(self.NF_save_button_func)
         self.NF_classify = QtWidgets.QPushButton(self.NF_controls)
-        self.NF_classify.setGeometry(QtCore.QRect(25, 62, 100, 25))
+        self.NF_classify.setGeometry(QtCore.QRect(25, 75, 100, 25))
         self.NF_classify.setText("Classify")
         self.NF_classify.clicked.connect(self.NF_classify_pic_func)
         self.NF_dream = QtWidgets.QPushButton(self.NF_controls)
-        self.NF_dream.setGeometry(QtCore.QRect(25, 12, 100, 25))
+        self.NF_dream.setGeometry(QtCore.QRect(25, 12, 100, 45))
         self.NF_dream.setText("Dream")
         self.NF_dream.clicked.connect(self.NF_dream_func)
         self.NF_iter = QtWidgets.QSlider(self.NF_controls)
@@ -140,7 +142,7 @@ class Ui_MainWindow(QWidget):
         self.NF_iter.setOrientation(QtCore.Qt.Vertical)
         self.NF_iter.setTickPosition(QtWidgets.QSlider.TicksAbove)
         self.NF_iter.setMaximum(10)
-        self.NF_iter.setValue(0)
+        self.NF_iter.setValue(3)
         self.NF_iter.valueChanged.connect(self.NF_iteration_change_func)
 
         #labels for the iterations slider
@@ -188,17 +190,17 @@ class Ui_MainWindow(QWidget):
         self.PIC_window = QtWidgets.QPushButton(self.PIC_controls)
         self.PIC_window.setGeometry(QtCore.QRect(25, 162, 100, 25))
         self.PIC_window.clicked.connect(self.PIC_window_generate)
-        self.PIC_window.setText("New Window")
+        self.PIC_window.setText("Original Size")
         self.PIC_export = QtWidgets.QPushButton(self.PIC_controls)
-        self.PIC_export.setGeometry(QtCore.QRect(25, 112, 100, 25))
+        self.PIC_export.setGeometry(QtCore.QRect(25, 118, 100, 25))
         self.PIC_export.setText("Save jpeg")
         self.PIC_export.clicked.connect(self.PIC_save_button_func)
         self.PIC_classify = QtWidgets.QPushButton(self.PIC_controls)
-        self.PIC_classify.setGeometry(QtCore.QRect(25, 62, 100, 25))
+        self.PIC_classify.setGeometry(QtCore.QRect(25, 75, 100, 25))
         self.PIC_classify.setText("Classify")
         self.PIC_classify.clicked.connect(self.PIC_classify_pic_func)
         self.PIC_dream = QtWidgets.QPushButton(self.PIC_controls)
-        self.PIC_dream.setGeometry(QtCore.QRect(25, 12, 100, 25))
+        self.PIC_dream.setGeometry(QtCore.QRect(25, 12, 100, 45))
         self.PIC_dream.setText("Dream")
         self.PIC_dream.clicked.connect(self.PIC_dream_func)
         self.PIC_iter = QtWidgets.QSlider(self.PIC_controls)
@@ -206,7 +208,7 @@ class Ui_MainWindow(QWidget):
         self.PIC_iter.setOrientation(QtCore.Qt.Vertical)
         self.PIC_iter.setTickPosition(QtWidgets.QSlider.TicksAbove)
         self.PIC_iter.setMaximum(10)
-        self.PIC_iter.setValue(0)
+        self.PIC_iter.setValue(5)
         self.PIC_iter.valueChanged.connect(self.PIC_iteration_change_func)
         
         #labels for the iterations slider
@@ -330,7 +332,7 @@ class Ui_MainWindow(QWidget):
     
     #imports a jpg or jpeg file
     def PIC_getfile(self):
-        fname = QFileDialog.getOpenFileName(self, 'Open file', 'c:\\',"Image files (*.jpg *jpeg)") #opens dialog box
+        fname = QFileDialog.getOpenFileName(self, 'Open file', self.my_directory_path ,"Image files (*.jpg *jpeg)") #opens dialog box
         copyfile(fname[0], self.my_directory_path + '/images/import_raw') #creates import_raw picture from import
 
         resized = PIL.Image.open(self.my_directory_path + '/images/import_raw')
@@ -522,10 +524,6 @@ class picWindow(Ui_MainWindow):
         displaychannel = self.ch + 1
         text = "Layer:\n" + self.lay[:-9] + "\n" + "\nChannel:\n" + str(displaychannel) +"\n\nIterations:\n" + str(self.iter) + "\n\nDescription:\n" + self.des
         self.layer_channel.setText(text)
-        self.save_button = QPushButton(self)
-        self.save_button.setText("Save")
-        self.save_button.setGeometry(390,20,50,30)
-        self.save_button.clicked.connect(self.save_func)
 
 #same as picWindow except that it displays the modified dream image in its original size
 class import_picWindow(Ui_MainWindow):
@@ -553,11 +551,6 @@ class import_picWindow(Ui_MainWindow):
         displaychannel = self.ch + 1
         text = "Layer:\n" + self.lay[:-9] + "\n" + "\nChannel:\n" + str(displaychannel) +"\n\nIterations:\n" + str(self.iter) + "\n\nDescription:\n" + self.des
         self.layer_channel.setText(text)
-
-        self.save_button = QPushButton(self)
-        self.save_button.setText("Save")
-        self.save_button.setGeometry(img_w + 10,20,50,30)
-        self.save_button.clicked.connect(self.save_func)
 
 #the new window generated responsible for saving the image to jpeg
 class savePicture(Ui_MainWindow):
@@ -591,6 +584,7 @@ class savePicture(Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyle('Fusion')
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
