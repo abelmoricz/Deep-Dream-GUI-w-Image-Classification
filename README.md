@@ -1,6 +1,8 @@
 # Deep Dream GUI with image classification
-My first public project. Criticism is very welcomed.  
-The focus was usability and intuitiveness (see User_Guide.pdf for more details)
+First, credit goes to Github user bapoczos and the Tensorflow team for providing the scripts for deepdream.py and classify.py  
+
+This is my first public project; criticism is welcomed. 
+The focus was usability and intuitiveness.
 
 Features:
 * Creates Native features; a quick visualization of how a layer and channel are going to distort an image
