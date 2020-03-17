@@ -1,5 +1,5 @@
 # Deep Dream GUI with image classification
-First, credit goes to Github user bapoczos and the Tensorflow team for providing the scripts for deepdream.py and classify.py  
+First, credit goes to Github user bapoczos and the Tensorflow team for providing the code for deepdream.py and classify.py  
 
 This is my first public project; criticism is welcomed. 
 The focus was usability and intuitiveness.
